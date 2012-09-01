@@ -95,7 +95,7 @@ $(document).ready(function(){
 	var Ambulance = function() {
 		this.width = 107;
 		this.height = 77;
-		this.speed = 5;
+		this.speed = Math.abs(Math.floor(Math.random() * 10 - 5)) + .5;
 		this.isDead = false;
 
 		this.x = 850;
@@ -125,7 +125,7 @@ $(document).ready(function(){
 		this.player = null;
 		this.ambulances = [];
 		this.ambulanceCount = 1;
-		
+		this.ambulanceMax = 15;
 		
 		this.init = function() {
 			this.player = new Player();
@@ -136,11 +136,16 @@ $(document).ready(function(){
 		  ctx.clearRect(0, 0, width, height);
 		  this.player.move();
 		  
-		  for(var i=0; i < this.ambulanceCount; i++){
+		  for(var i=0; i < this.ambulances.length; i++){
 			this.ambulances[i].move();
 		  }
-			
+		  
 		  this.deleteAmbulances();
+		  
+		  rand = Math.floor((Math.random()*100)+1);
+		  if(rand > 99) {
+			self.addAmbulance(1);
+		  }
 		}
 		  
 		this.reset = function() {
@@ -148,9 +153,7 @@ $(document).ready(function(){
 		}
 		
 		this.addAmbulance = function(count) {
-			for(var i=0; i < count; i++) {
-				this.ambulances.push(new Ambulance());
-			}
+			this.ambulances.push(new Ambulance());
 		};
 		
 		this.deleteAmbulances = function() {
@@ -161,7 +164,7 @@ $(document).ready(function(){
 			}
 		};
 		
-		//Adding keyboard controls
+		// Keyborad controls
 		document.onkeydown = function(e) {
 			var key = e.keyCode;
 
