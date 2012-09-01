@@ -11,7 +11,7 @@ $(document).ready(function(){
   var canvas = document.getElementById('canvas');
   var ctx = canvas.getContext('2d');
   var width = 960;
-  var height = 600;
+  var height = 500;
   var image = document.getElementById("sprite");
 
   canvas.width = width;
@@ -91,7 +91,7 @@ $(document).ready(function(){
 		this.isDead = false;
 
 		this.x = 850;
-		this.y = 600 - this.height;
+		this.y = canvas.height - this.height;
 		this.cx = 47;
 		this.cy = 272;
 		this.cwidth = 107;
@@ -118,6 +118,9 @@ $(document).ready(function(){
 	var Game = function() {
 		var self = this;
 		
+        this.scoreElement = $('#score span');
+        this.ambElement = $('#amb span');
+        
 		this.gravity = 0.2;
 		this.score = 0;
 		
@@ -145,6 +148,8 @@ $(document).ready(function(){
 		  if(rand > 99) {
 			self.addAmbulance(1);
 		  }
+          
+          this.updateStats();
 		}
 		  
 		this.reset = function() {
@@ -163,6 +168,11 @@ $(document).ready(function(){
 			}
 		};
 		
+        this.updateStats = function() {
+            this.scoreElement.html(this.score);
+            this.ambElement.html(this.ambulances.length);
+        };
+        
 		// Keyborad controls
 		document.onkeydown = function(e) {
 			var key = e.keyCode;

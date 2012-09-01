@@ -5,7 +5,6 @@ body {
 }
 
 .container {
-  height: 600px;
   width: 100%;
   position: relative;
   margin: 0px auto;
@@ -13,9 +12,12 @@ body {
 }
 
 canvas {
-  height: 600px;
+  height: 500px;
   width: 100%;
   display: block;
   background-color: white;
   border: 1px solid black;
 }
+
+#sprite{display: none;}
+#stats{width: 650px; margin: 0 auto;}
