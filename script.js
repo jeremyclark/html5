@@ -29,11 +29,12 @@ $(document).ready(function(){
 		this.isDead = false;
 		this.isFiring = false;
 		this.direction = 'left';
+        
+        this.shots = [];
 
 		this.width = 99;
 		this.height = 134;
 
-		//Sprite clipping
 		this.cx = 0;
 		this.cy = 0;
 		this.cwidth = 99;
@@ -41,7 +42,12 @@ $(document).ready(function(){
 
 		this.x = width / 2 - this.width / 2;
 		this.y = 10;
-
+        
+        this.shoot = function() {
+            console.log('Shoot: ' + (this.x )+ ' ' + (this.y ));
+            this.shots.push(new Shot((this.x + 25), (this.y + 100), this.direction));
+        };
+         
 		this.move = function() {
 			this.y +=this.vy;
 
@@ -69,8 +75,6 @@ $(document).ready(function(){
 			this.draw();
 		};
 		
-		
-		//Function to draw it
 		this.draw = function() {
 		  try {
 			if (this.direction == 'right') this.cx = 99;
@@ -111,8 +115,40 @@ $(document).ready(function(){
 		};
 	};	  
 	  
-	var shot = function() {
-		
+	var Shot = function(x, y, direction) {
+		this.width = 43;
+        this.height = 18;
+        this.speed = 3;
+        this.isFinished = false;
+        
+        this.direction = direction;
+        this.x = x;
+        this.y = y;
+        console.log(x);
+        console.log(y);
+      
+        this.cx = 0;
+        this.cy = 268;
+        
+        this.move = function() {
+            if(this.isFinished) return;
+            
+            if(this.direction == 'left') {
+                this.x -= this.speed;
+                this.y += this.speed;
+            }else{
+                this.x += this.speed;
+                this.y += this.speed;
+            }
+            this.draw();
+        };
+        
+        this.draw = function() {
+            try{
+                ctx.drawImage(image, this.cx, this.cy, this.width, this.height, this.x, this.y, this.width, this.height);
+            }catch(e){
+            }
+        };
 	};
 	 
 	var Game = function() {
@@ -120,6 +156,7 @@ $(document).ready(function(){
 		
         this.scoreElement = $('#score span');
         this.ambElement = $('#amb span');
+        this.shotsElement = $('#shots span');
         
 		this.gravity = 0.2;
 		this.score = 0;
@@ -137,6 +174,10 @@ $(document).ready(function(){
 		this.tick = function() {
 		  ctx.clearRect(0, 0, width, height);
 		  this.player.move();
+          
+          for(var i=0; i < this.player.shots.length; i++) {
+            this.player.shots[i].move();
+          }
 		  
 		  for(var i=0; i < this.ambulances.length; i++){
 			this.ambulances[i].move();
@@ -171,6 +212,7 @@ $(document).ready(function(){
         this.updateStats = function() {
             this.scoreElement.html(this.score);
             this.ambElement.html(this.ambulances.length);
+            this.shotsElement.html(this.player.shots.length);
         };
         
 		// Keyborad controls
@@ -198,12 +240,12 @@ $(document).ready(function(){
 				self.player.direction = 'right';
 				self.player.isMovingRight = false;
 			}else if (key == 32) {
+                self.player.shoot();
 				self.player.isFiring = false;
 			}
 		};		
 	 };
  
-	
 	var game = new Game();
 	game.init();
 	
