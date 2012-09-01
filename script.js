@@ -17,16 +17,8 @@ $(document).ready(function(){
   canvas.width = width;
   canvas.height = height;
 
-  var position = 0,
-      gravity = 0.2,
-      animloop,
-      flag = 0,
-      menuloop,
-      game,
-      dir,
-      score = 0,
-      firstRun = true;
-
+  var animloop,
+        menuloop;
 	  
 	var Player = function() {
 		this.vy = 0;
@@ -119,9 +111,16 @@ $(document).ready(function(){
 		};
 	};	  
 	  
-	  
+	var shot = function() {
+		
+	};
+	 
 	var Game = function() {
 		var self = this;
+		
+		this.gravity = 0.2;
+		this.score = 0;
+		
 		this.player = null;
 		this.ambulances = [];
 		this.ambulanceCount = 1;
