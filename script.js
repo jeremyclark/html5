@@ -52,15 +52,6 @@ $(document).ready(function(){
 
 		this.move = function() {
 			this.y +=this.vy;
-		  //player.vy += gravity;
-
-		  if (this.vy > 0 &&
-			(this.x + 15 < 260) &&
-			(this.x +this.width - 15 > 155) &&
-			(this.y +this.height > 475) &&
-			(this.y +this.height < 500))
-			this.jump();
-		  
 
 			//Accelerations produces when the user hold the keys
 			if (this.isMovingLeft === true) {
@@ -98,14 +89,6 @@ $(document).ready(function(){
 
 			ctx.drawImage(image, this.cx, this.cy, this.cwidth, this.cheight, this.x, this.y, this.width, this.height);
 		  } catch (e) {}
-		};
-
-		this.jump = function() {
-		  this.vy = 0;
-		};
-
-		this.jumpHigh = function() {
-		  this.vy = 0;
 		};
 	};
 
