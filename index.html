@@ -8,33 +8,37 @@
 </head>
 <body>
   <div class="container">
-        
+
 	<canvas id="canvas">
-      Aww, your browser doesn't support HTML5!
-    </canvas>
-	
-    <table id='stats'>
-        <tr>
-            <td><h1 id='score'>Money: $<span>0</span>.00</h1></td>
-            <td style='width: 150px;'></td>
-            <td><h1 id='amb'>Ambulances: <span>0</span></h1></td>
-         </tr>
-         <tr>
-            <td><h1 id='shots'>Shots: <span></span></td>
-            <td></td>
-            <td></td>
-         </tr>
-         <tr>
-            <td style='text-align: center;' colspan='3'><h2 class='super'>Get a Lawyer. Get it done</h2></td>
-         </tr>
-         </tr>
-          
-     </table>
+    Aww, your browser doesn't support HTML5!
+  </canvas>
 
-    <img id="sprite" src="sprites.png"/>
+  <div id='content'>
+    <div id='controls'>
+      <button value='Play' id='play'>Play</button>
+      <button value='Stop' id='stop'>Stop</button>
+    </div>
+    <div class='clear'></div>
+  </div>
 
+  <table id='stats'>
+      <tr>
+          <td><h1 id='score'>Money: $<span>0</span>.00</h1></td>
+          <td style='width: 150px;'></td>
+          <td><h1 id='amb'>Ambulances: <span>0</span></h1></td>
+       </tr>
+       <tr>
+          <td><h1 id='shots'>Shots: <span></span></td>
+          <td></td>
+          <td></td>
+       </tr>
+       <tr>
+          <td style='text-align: center;' colspan='3'><h2 class='super'>Get a Lawyer. Get it done</h2></td>
+       </tr>
+       </tr>
+   </table>
 
-
+  <img id="sprite" src="sprites.png"/>
   </div>
 </body>
 </html>

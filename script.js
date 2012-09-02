@@ -223,6 +223,7 @@ $(document).ready(function(){
 
   var Game = function() {
     var self = this;
+    this.isRunning = false;
 
     this.scoreElement = $('#score span');
     this.ambElement = $('#amb span');
@@ -237,11 +238,19 @@ $(document).ready(function(){
     this.ambulanceMax = 15;
 
     this.init = function() {
-      this.player = new Player();
-      this.addAmbulance(this.ambulanceCount);
+      this.isRunning = true;
+      if(this.player == null) {
+        this.player = new Player();
+      }
+
+      if(this.ambulances.length == 0) {
+        this.addAmbulance(this.ambulanceCount);
+      }
     };
 
     this.tick = function() {
+      if(!this.isRunning) return;
+
       ctx.clearRect(0, 0, width, height);
       this.player.move();
 
@@ -258,7 +267,7 @@ $(document).ready(function(){
       this.deleteAmbulances();
 
       rand = Math.floor((Math.random()*100)+1);
-      if(rand > 99) {
+      if(rand > 97) {
       self.addAmbulance(1);
       }
 
@@ -321,9 +330,11 @@ $(document).ready(function(){
         self.player.isMovingRight = true;
       }else if (key == 32) {
         self.player.isFiring = true;
-       }
+      }
 
-       return false;
+      if(key == 37 || key == 39 || key == 32){
+        return false;
+      }
     };
 
     document.onkeyup = function(e) {
@@ -343,7 +354,17 @@ $(document).ready(function(){
    };
 
   var game = new Game();
-  game.init();
+
+  $('#play').click(function(){
+    if(game.isRunning == false) {
+      game.init();
+      menuLoop();
+    }
+  });
+
+  $('#stop').click(function(){
+    game.isRunning = false;
+  });
 
   menuLoop = function() {
     game.tick();
