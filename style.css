@@ -21,3 +21,5 @@ canvas {
 
 #sprite{display: none;}
 #stats{width: 650px; margin: 0 auto;}
+
+.super{font-size: 36px; color: red;}

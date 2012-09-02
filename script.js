@@ -116,8 +116,8 @@ $(document).ready(function(){
 	};	  
 	  
 	var Shot = function(x, y, direction) {
-		this.width = 43;
-        this.height = 18;
+		this.width = 60;
+        this.height = 34;
         this.speed = 3;
         this.isFinished = false;
         
@@ -127,8 +127,8 @@ $(document).ready(function(){
         console.log(x);
         console.log(y);
       
-        this.cx = 0;
-        this.cy = 268;
+        this.cx = 198;
+        this.cy = 0;
         
         this.move = function() {
             if(this.isFinished) return;
@@ -183,6 +183,8 @@ $(document).ready(function(){
 			this.ambulances[i].move();
 		  }
 		  
+         // this.checkCollisions();
+          
 		  this.deleteAmbulances();
 		  
 		  rand = Math.floor((Math.random()*100)+1);
@@ -192,6 +194,10 @@ $(document).ready(function(){
           
           this.updateStats();
 		}
+        
+        this.checkCollisions = function() {
+            
+        };
 		  
 		this.reset = function() {
 		  this.window.reload;
