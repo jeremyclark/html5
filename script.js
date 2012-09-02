@@ -236,15 +236,21 @@ $(document).ready(function(){
     this.ambulances = [];
     this.ambulanceCount = 1;
     this.ambulanceMax = 15;
+    this._clock = null;
 
     this.init = function() {
       this.isRunning = true;
+      
       if(this.player == null) {
         this.player = new Player();
       }
 
       if(this.ambulances.length == 0) {
         this.addAmbulance(this.ambulanceCount);
+      }
+      
+      if(this._clock === null) {
+        this._clock = this.clock();
       }
     };
 
@@ -318,6 +324,20 @@ $(document).ready(function(){
       this.score += amount;
     };
 
+    this.pause = function() {
+        this.isRunning = false;
+    };
+    
+    this.clock = function() {
+      menuLoop = function() {
+        game.tick();
+        requestAnimFrame(menuLoop);
+      };
+
+      menuLoop();
+    };
+    
+    
     // Keyborad controls
     document.onkeydown = function(e) {
       var key = e.keyCode;
@@ -355,21 +375,19 @@ $(document).ready(function(){
 
   var game = new Game();
 
-  $('#play').click(function(){
-    if(game.isRunning == false) {
+  $('#play').click(function(){ 
+   if(game.isRunning == false) {
+      var a = new Audio('gavel.wav');
+      a.addEventListener('MozAudioAvailable', null, false);
+      a.play();
       game.init();
-      menuLoop();
+      $(this).blur();
     }
   });
 
   $('#stop').click(function(){
-    game.isRunning = false;
+    game.pause();
   });
 
-  menuLoop = function() {
-    game.tick();
-    requestAnimFrame(menuLoop);
-   };
-
-  menuLoop();
+  
 });
