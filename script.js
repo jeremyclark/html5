@@ -140,6 +140,9 @@ $(document).ready(function(){
                 this.x += this.speed;
                 this.y += this.speed;
             }
+            
+            if(this.x > canvas.width || this.y > canvas.height) this.isFinished = true;
+            
             this.draw();
         };
         
@@ -183,7 +186,7 @@ $(document).ready(function(){
 			this.ambulances[i].move();
 		  }
 		  
-         // this.checkCollisions();
+          this.checkCollisions();
           
 		  this.deleteAmbulances();
 		  
@@ -196,7 +199,20 @@ $(document).ready(function(){
 		}
         
         this.checkCollisions = function() {
-            
+          for(var i = 0; i <this.player.shots.length; i++) {
+            for(var j = 0; j < this.ambulances.length; j++) {
+                var shot = this.player.shots[i];
+                var ambulance = this.ambulances[j];
+                
+                if(shot.isFinished || ambulance.isDead) continue;
+                if( ((shot.x >= ambulance.x && shot.x <= (ambulance.x + ambulance.width)) || (shot.x + shot.width >= ambulance.x && shot.x + shot.width <= (ambulance.x + ambulance.width)) ) &&
+                     ((shot.y >= ambulance.y && shot.y <= (ambulance.y + ambulance.height)) || (shot.y + shot.height >= ambulance.y && shot.y + shot.height <= (ambulance.y + ambulance.height)) ) )
+                {
+                    ambulance.isDead = true;
+                    shot.isFinished = true;
+                }
+            }
+          }
         };
 		  
 		this.reset = function() {
