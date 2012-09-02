@@ -228,8 +228,8 @@ $(document).ready(function(){
     this.ambElement = $('#amb span');
     this.shotsElement = $('#shots span');
 
-    this.gravity = 0.2;
     this.score = 0;
+    this.ambulanceDeathScore = 1000;
 
     this.player = null;
     this.ambulances = [];
@@ -245,15 +245,15 @@ $(document).ready(function(){
       ctx.clearRect(0, 0, width, height);
       this.player.move();
 
-          for(var i=0; i < this.player.shots.length; i++) {
-            this.player.shots[i].move();
-          }
+      for(var i=0; i < this.player.shots.length; i++) {
+        this.player.shots[i].move();
+      }
 
       for(var i=0; i < this.ambulances.length; i++){
       this.ambulances[i].move();
       }
 
-          this.checkCollisions();
+      this.checkCollisions();
 
       this.deleteAmbulances();
 
@@ -262,22 +262,23 @@ $(document).ready(function(){
       self.addAmbulance(1);
       }
 
-          this.updateStats();
+      this.updateStats();
     }
 
     this.checkCollisions = function() {
       for(var i = 0; i <this.player.shots.length; i++) {
         for(var j = 0; j < this.ambulances.length; j++) {
-            var shot = this.player.shots[i];
-            var ambulance = this.ambulances[j];
+          var shot = this.player.shots[i];
+          var ambulance = this.ambulances[j];
 
-            if(shot.isFinished || ambulance.isDead) continue;
-            if( ((shot.x >= ambulance.x && shot.x <= (ambulance.x + ambulance.width)) || (shot.x + shot.width >= ambulance.x && shot.x + shot.width <= (ambulance.x + ambulance.width)) ) &&
-                 ((shot.y >= ambulance.y && shot.y <= (ambulance.y + ambulance.height)) || (shot.y + shot.height >= ambulance.y && shot.y + shot.height <= (ambulance.y + ambulance.height)) ) )
-            {
-                ambulance.isDying = true;
-                shot.isFinished = true;
-            }
+          if(shot.isFinished || ambulance.isDead) continue;
+          if( ((shot.x >= ambulance.x && shot.x <= (ambulance.x + ambulance.width)) || (shot.x + shot.width >= ambulance.x && shot.x + shot.width <= (ambulance.x + ambulance.width)) ) &&
+               ((shot.y >= ambulance.y && shot.y <= (ambulance.y + ambulance.height)) || (shot.y + shot.height >= ambulance.y && shot.y + shot.height <= (ambulance.y + ambulance.height)) ) )
+          {
+              ambulance.isDying = true;
+              shot.isFinished = true;
+              this.updateScore(this.ambulanceDeathScore);
+          }
         }
       }
     };
@@ -298,11 +299,15 @@ $(document).ready(function(){
       }
     };
 
-        this.updateStats = function() {
-            this.scoreElement.html(this.score);
-            this.ambElement.html(this.ambulances.length);
-            this.shotsElement.html(this.player.shots.length);
-        };
+    this.updateStats = function() {
+      this.scoreElement.html(this.score);
+      this.ambElement.html(this.ambulances.length);
+      this.shotsElement.html(this.player.shots.length);
+    };
+
+    this.updateScore = function(amount) {
+      this.score += amount;
+    };
 
     // Keyborad controls
     document.onkeydown = function(e) {
@@ -317,6 +322,8 @@ $(document).ready(function(){
       }else if (key == 32) {
         self.player.isFiring = true;
        }
+
+       return false;
     };
 
     document.onkeyup = function(e) {
