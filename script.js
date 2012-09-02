@@ -93,6 +93,7 @@ $(document).ready(function(){
 		this.height = 77;
 		this.speed = Math.abs(Math.floor(Math.random() * 10 - 5)) + .5;
 		this.isDead = false;
+        this.isDying = false;
 
 		this.x = 850;
 		this.y = canvas.height - this.height;
@@ -102,7 +103,7 @@ $(document).ready(function(){
 		this.cheight = 74;
 		
 		this.move = function() {		
-			if(this.isDead) return;
+			if(this.isDead || this.isDying) return;
 			
 			this.x -= this.speed;
 			this.draw();
