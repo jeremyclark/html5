@@ -280,7 +280,8 @@ $(document).ready(function(){
       }
 
       for(var i=0; i < this.ambulances.length; i++){
-      this.ambulances[i].move();
+        if(this.ambulances[i] === null) continue;
+        this.ambulances[i].move();
       }
 
       this.checkCollisions();
@@ -302,7 +303,7 @@ $(document).ready(function(){
           var shot = this.player.shots[i];
           var ambulance = this.ambulances[j];
 
-          if(shot.isFinished || ambulance.isDead) continue;
+          if(ambulance === null || shot.isFinished || ambulance.isDead) continue;
           if( ((shot.x >= ambulance.x && shot.x <= (ambulance.x + ambulance.width)) || (shot.x + shot.width >= ambulance.x && shot.x + shot.width <= (ambulance.x + ambulance.width)) ) &&
                ((shot.y >= ambulance.y && shot.y <= (ambulance.y + ambulance.height)) || (shot.y + shot.height >= ambulance.y && shot.y + shot.height <= (ambulance.y + ambulance.height)) ) )
           {
@@ -324,8 +325,9 @@ $(document).ready(function(){
 
     this.deleteAmbulances = function() {
       for(var i = 0; i < this.ambulances.length; i++) {
-        if(this.ambulances[i].x < (-1 * this.ambulances[i].width)) {
-          this.ambulances[i].isDead = true;
+        if(this.ambulances[i] === null) continue;
+        if(this.ambulances[i].x < (-1 * this.ambulances[i].width) || this.ambulances[i].isDead) {
+          this.ambulances[i] = null;
         }
       }
     };
