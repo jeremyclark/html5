@@ -30,6 +30,7 @@ $(document).ready(function(){
     this.isFiring = false;
     this.direction = 'left';
     this.shotCooldown = 0;
+    this.speed = 12;
     
     this.shots = [];
 
@@ -55,26 +56,15 @@ $(document).ready(function(){
     };
 
     this.move = function() {
-      this.y +=this.vy;
 
-      //Accelerations produces when the user hold the keys
       if (this.isMovingLeft === true) {
-        this.x += this.vx;
-        this.vx -= 0.15;
-      } else {
-        this.x += this.vx;
-        if (this.vx < 0) this.vx += 0.1;
+        this.x -= this.speed;
       }
 
       if (this.isMovingRight === true) {
-        this.x += this.vx;
-        this.vx += 0.15;
-      } else {
-        this.x += this.vx;
-        if (this.vx > 0) this.vx -= 0.1;
+        this.x += this.speed;
       }
-
-      //Make the this move through walls
+      
       if (this.x > width) this.x = 0 - this.width;
       else if (this.x < 0 - this.width) this.x = width;
       
