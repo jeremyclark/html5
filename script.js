@@ -29,8 +29,9 @@ $(document).ready(function(){
     this.isDead = false;
     this.isFiring = false;
     this.direction = 'left';
-
-        this.shots = [];
+    this.shotCooldown = 0;
+    
+    this.shots = [];
 
     this.width = 99;
     this.height = 134;
@@ -44,7 +45,13 @@ $(document).ready(function(){
     this.y = 10;
 
     this.shoot = function() {
-      this.shots.push(new Shot((this.x + 25), (this.y + 100), this.direction));
+      if(this.shotCooldown <= 0) {
+        this.shotCooldown = 15;
+        this.isFiring = true;
+        this.shots.push(new Shot((this.x + 25), (this.y + 100), this.direction));
+      }else{
+        this.isFiring = false;
+      }
     };
 
     this.move = function() {
@@ -70,7 +77,8 @@ $(document).ready(function(){
       //Make the this move through walls
       if (this.x > width) this.x = 0 - this.width;
       else if (this.x < 0 - this.width) this.x = width;
-
+      
+      this.shotCooldown -= 1;
       this.draw();
     };
 
@@ -371,7 +379,7 @@ $(document).ready(function(){
         self.player.direction = 'right';
         self.player.isMovingRight = true;
       }else if (key == 32) {
-        self.player.isFiring = true;
+        self.player.shoot();
       }
 
       if(key == 37 || key == 39 || key == 32){
@@ -389,7 +397,6 @@ $(document).ready(function(){
         self.player.direction = 'right';
         self.player.isMovingRight = false;
       }else if (key == 32) {
-                self.player.shoot();
         self.player.isFiring = false;
       }
     };
