@@ -228,6 +228,7 @@ $(document).ready(function(){
     this.scoreElement = $('#score span');
     this.ambElement = $('#amb span');
     this.shotsElement = $('#shots span');
+    this.fpsElement = $('#fps span');
 
     this.score = 0;
     this.ambulanceDeathScore = 1000;
@@ -237,6 +238,11 @@ $(document).ready(function(){
     this.ambulanceCount = 1;
     this.ambulanceMax = 15;
     this._clock = null;
+    
+    this.fps = 0;
+    this.now = null;
+    this.lastUpdate = (new Date)*1 - 1;
+    this.fpsFilter = 50;
 
     this.init = function() {
       this.isRunning = true;
@@ -251,6 +257,7 @@ $(document).ready(function(){
       
       if(this._clock === null) {
         this._clock = this.clock();
+        this.fpsInit();
       }
     };
 
@@ -276,7 +283,8 @@ $(document).ready(function(){
       if(rand > 97) {
       self.addAmbulance(1);
       }
-
+      
+      this.calcFps();
       this.updateStats();
     }
 
@@ -323,7 +331,21 @@ $(document).ready(function(){
     this.updateScore = function(amount) {
       this.score += amount;
     };
-
+    
+    this.fpsInit = function() {
+      var self = this;
+      
+      setInterval(function(){
+        self.fpsElement.html(self.fps.toFixed(1));
+      }, 1000); 
+    };
+    
+    this.calcFps = function() {
+      var thisFrameFPS = 1000 / ((now=new Date) - this.lastUpdate);
+      this.fps += (thisFrameFPS - this.fps) / this.fpsFilter;
+      this.lastUpdate = now;
+    };
+    
     this.pause = function() {
         this.isRunning = false;
     };
