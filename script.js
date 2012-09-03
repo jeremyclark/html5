@@ -289,14 +289,34 @@ $(document).ready(function(){
 
     this.checkCollisions = function() {
       for(var i = 0; i <this.player.shots.length; i++) {
+       var shot = this.player.shots[i];
+        if(shot.isFinished) continue;
+        
         for(var j = 0; j < this.ambulances.length; j++) {
-          var shot = this.player.shots[i];
           var ambulance = this.ambulances[j];
-
-          if(ambulance === null || shot.isFinished || ambulance.isDead) continue;
-          if( ((shot.x >= ambulance.x && shot.x <= (ambulance.x + ambulance.width)) || (shot.x + shot.width >= ambulance.x && shot.x + shot.width <= (ambulance.x + ambulance.width)) ) &&
-               ((shot.y >= ambulance.y && shot.y <= (ambulance.y + ambulance.height)) || (shot.y + shot.height >= ambulance.y && shot.y + shot.height <= (ambulance.y + ambulance.height)) ) )
-          {
+          
+          if(ambulance === null) continue;
+          
+          var left1, left2;
+          var right1, right2;
+          var top1, top2;
+          var bottom1, bottom2;
+          
+          left1 = shot.x;
+          left2 = ambulance.x;
+          
+          right1 = shot.x + shot.width;
+          right2 = ambulance.x + ambulance.width;
+          
+          top1 = shot.y;
+          top2 = ambulance.y;
+          
+          bottom1 = shot.y + shot.height;
+          bottom2 = ambulance.y + ambulance.height;
+          
+          if(bottom1 < top2 || top1 > bottom2 || right1 < left2 || left1 > right2) {
+              continue;
+          }else{
               ambulance.isDying = true;
               shot.isFinished = true;
               this.updateScore(this.ambulanceDeathScore);
