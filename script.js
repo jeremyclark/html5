@@ -320,6 +320,7 @@ $(document).ready(function(){
               ambulance.isDying = true;
               shot.isFinished = true;
               this.updateScore(this.ambulanceDeathScore);
+              break;
           }
         }
       }
