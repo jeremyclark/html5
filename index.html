@@ -11,35 +11,40 @@
 </head>
 <body>
   <div class="container">
-
-	<canvas id="canvas">
-    Aww, your browser doesn't support HTML5!
-  </canvas>
-
-  <div id='content'>
-    <div class='btn-group' data-toggle='buttons-radio'>     
-      <button class='btn btn-large btn-primary' value='Play' id='play'>Play</button>
-      <button class='btn btn-large btn-primary' value='Stop' id='stop'>Stop</button>
+    
+    <div class='row'>
+      <h1 style='text-align:  center; font-color: red;'>Get a Lawyer. Get it done</h1>
     </div>
-    <div class='clear'></div>
-  </div>
+    
+    <div class='row' style='margin-bottom: 10px;'>
+      <div class='btn-group' data-toggle='buttons-radio'>     
+        <button class='btn btn-large btn-primary' value='Play' id='play'>Play <span class='icon-play'></span></button>
+        <button class='btn btn-large btn-primary' value='Stop' id='stop'>Stop <span class='icon-stop'></span></button>
+      </div>
+    </div>
+    
+    <div class='row'></div>
+    
+    <div class='row'>
+      <canvas id="canvas">
+        Aww, your browser doesn't support HTML5!
+      </canvas>
+     </div>
 
-  <table id='stats'>
-      <tr>
-          <td><h1 id='score'>Money: $<span>0</span>.00</h1></td>
-          <td style='width: 150px;'></td>
-          <td><h1 id='amb'>Ambulances: <span>0</span></h1></td>
-       </tr>
-       <tr>
-          <td><h1 id='shots'>Shots: <span></span></td>
-          <td></td>
-          <td></td>
-       </tr>
-       <tr>
-          <td style='text-align: center;' colspan='3'><h2 class='super'>Get a Lawyer. Get it done</h2></td>
-       </tr>
-       </tr>
-   </table>
+    
+    <div class='row'>      
+      <div class='span3'>
+        <h3 id='score'>Money: $<span></span>.00</h3>
+      </div>
+      
+      <div class='span3'>
+        <h3 id='amb'>Ambulances: <span></span></h3>
+      </div>
+      
+      <div class='span3'>
+        <h3 id='shots'>Shots: <span></span></h3>
+      </div>
+    </div>
 
   <img id="sprite" src="sprites.png"/>
   </div>
