@@ -1,9 +1,12 @@
 <!DOCTYPE HTML>
 <html lang="en-US">
 <head>
+  <link rel='stylesheet' href='bootstrap/css/bootstrap.min.css' type='text/css'>
   <link rel='stylesheet' href='style.css' type='text/css'>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+  <script src='bootstrap/js/bootstrap.min.js'></script>
   <script src='script.js'></script>
+  
   <title>Get a Lawyer. Get it done.</title>
 </head>
 <body>
@@ -14,9 +17,9 @@
   </canvas>
 
   <div id='content'>
-    <div id='controls'>
-      <button value='Play' id='play'>Play</button>
-      <button value='Stop' id='stop'>Stop</button>
+    <div class='btn-group' data-toggle='buttons-radio'>     
+      <button class='btn btn-large btn-primary' value='Play' id='play'>Play</button>
+      <button class='btn btn-large btn-primary' value='Stop' id='stop'>Stop</button>
     </div>
     <div class='clear'></div>
   </div>

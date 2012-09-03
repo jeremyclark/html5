@@ -1,25 +1,9 @@
-*{box-sizing: border-box;}
-
-body {
-  margin: 0; padding: 0;
-}
-
-.container {
-  width: 100%;
-  position: relative;
-  margin: 0px auto;
-  overflow: hidden;
-}
-
+.container{padding-top: 25px;}
 canvas {
   height: 500px;
   width: 100%;
-  display: block;
   background-color: white;
   border: 1px solid black;
 }
 
 #sprite{display: none;}
-#stats{width: 650px; margin: 0 auto;}
-
-.super{font-size: 36px; color: red;}
