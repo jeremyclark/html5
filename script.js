@@ -406,9 +406,6 @@ $(document).ready(function(){
 
   $('#play').click(function(){ 
    if(game.isRunning == false) {
-      var a = new Audio('gavel.wav');
-      a.addEventListener('MozAudioAvailable', null, false);
-      a.play();
       game.init();
       $(this).blur();
     }
