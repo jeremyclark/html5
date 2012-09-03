@@ -393,10 +393,8 @@ $(document).ready(function(){
       var key = e.keyCode;
 
       if (key == 37) {
-        self.player.direction = 'left';
         self.player.isMovingLeft = false;
       } else if (key == 39) {
-        self.player.direction = 'right';
         self.player.isMovingRight = false;
       }else if (key == 32) {
         self.player.isFiring = false;
